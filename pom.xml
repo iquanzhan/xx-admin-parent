@@ -11,6 +11,7 @@
     <modules>
         <module>xx-modules</module>
         <module>xx-common</module>
+        <module>xx-generator</module>
     </modules>
 
     <properties>
@@ -34,6 +35,10 @@
         <lombok.version>1.18.10</lombok.version>
         <swagger.fox.version>3.0.0</swagger.fox.version>
         <swagger.core.version>1.6.2</swagger.core.version>
+        <mybatisplus.version>3.1.0</mybatisplus.version>
+        <freemarker.version>2.3.29</freemarker.version>
+        <mysql.version>8.0.11</mysql.version>
+        <druid.version>1.2.8</druid.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -147,28 +152,38 @@
                 <version>${swagger.core.version}</version>
             </dependency>
 
-            <!--swagger-->
+            <!--mybatis-plus-->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.fox.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatisplus.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-annotations</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-jdbc</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger.fox.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
 
+
+            <!-- mysql-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- Druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
