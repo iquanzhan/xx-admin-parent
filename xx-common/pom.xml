@@ -16,6 +16,7 @@
     </description>
     <modules>
         <module>xx-common-core</module>
+        <module>xx-swagger-spring-boot-starter</module>
     </modules>
 
     <properties>

@@ -36,6 +36,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-swagger-spring-boot-starter</artifactId>
+            <version>${xxadmin.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
