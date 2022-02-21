@@ -1,6 +1,7 @@
 package com.chengxiaoxiao.core.exception;
 
 
+import com.chengxiaoxiao.core.vo.CodeMsg;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
