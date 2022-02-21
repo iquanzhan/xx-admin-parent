@@ -44,6 +44,9 @@ import java.util.Map;
 @Service
 public class CodeGeneratorServiceImpl implements CodeGeneratorService {
 
+    public static final String TYPE_INT = "int";
+    public static final String TYPE_INTERGER = "integer";
+    public static final String TYPE_TINYINT = "tinyint";
     @Resource
     private HttpServletRequest request;
     @Resource
@@ -101,6 +104,92 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
         AutoGenerator mpg = new AutoGenerator();
 
         // 2、全局配置
+        GlobalConfig gc = getGlobalConfig(query, fileDir, isBackEnd);
+
+        mpg.setGlobalConfig(gc);
+
+        // 3、数据源配置
+        mpg.setDataSource(getDataSourceConfig(query));
+
+
+        // 4、包配置
+        PackageConfig pc = getPackageConfig(query);
+        mpg.setPackageInfo(pc);
+
+
+        // 4.1 模板配置
+        mpg.setTemplate(getTemplateConfig(isBackEnd));
+
+        InjectionConfig ic = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                Map<String, Object> map = new HashMap<>(1);
+                map.put("basePackage", query.getParentPackage() + "." + query.getModuleName());
+                this.setMap(map);
+            }
+        };
+
+        //4.2 文件输出配置
+        ic.setFileOutConfigList(getFileOutConfig(fileDir, isBackEnd, gc, pc));
+
+        mpg.setCfg(ic);
+
+
+        // 5、策略配置
+        StrategyConfig strategy = new StrategyConfig();
+
+        strategy.setInclude(query.getTableName().split(","));
+
+        //数据库表映射到实体的命名策略
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        //生成实体时去掉表前缀
+        strategy.setTablePrefix(pc.getModuleName() + "_");
+
+        //数据库表字段映射到实体的命名策略
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        strategy.setEntityLombokModel(query.getIsLombok());
+
+        strategy.setRestControllerStyle(true);
+        strategy.setVersionFieldName("version");
+        //填充字段
+
+        strategy.setTableFillList(getTableFills());
+
+        //url中驼峰转连字符
+        strategy.setControllerMappingHyphenStyle(true);
+
+        mpg.setStrategy(strategy);
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+
+
+        mpg.execute();
+
+
+        if (!isBackEnd) {
+            //前端复制其他内容
+            File[] fileList = FileUtil.ls(fileProperties.getUploadPath() + "/template/vue");
+
+            for (File file : fileList) {
+                FileUtil.copy(file.getAbsolutePath(), fileDir, true);
+            }
+        }
+
+        //打包输出
+        String moduleZipFile = FileUtil.getParent(fileDir, 1) + "/" + query.getModuleName() + ".zip";
+        ZipUtil.zip(fileDir, moduleZipFile);
+
+        return fileProperties.getAbsUploadPath(moduleZipFile);
+    }
+
+    /**
+     * 获取全局配置信息
+     *
+     * @param query     前端传递参数
+     * @param fileDir   文件夹
+     * @param isBackEnd 是否为后端
+     * @return 全局参数
+     */
+    private GlobalConfig getGlobalConfig(DatabaseConfigQuery query, String fileDir, boolean isBackEnd) {
         GlobalConfig gc = new GlobalConfig();
 
         gc.setOutputDir(fileDir + (isBackEnd ? "/src/main/java" : ""));
@@ -114,30 +203,74 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
             gc.setServiceName("%sService");
         }
 
+        IdType[] idTypes = {IdType.AUTO, IdType.NONE, IdType.INPUT, IdType.ID_WORKER, IdType.UUID, IdType.ID_WORKER_STR};
 
-        IdType type = IdType.AUTO;
-        if (query.getIdType().equals(1)) {
-            type = IdType.NONE;
-        } else if (query.getIdType().equals(2)) {
-            type = IdType.INPUT;
-        } else if (query.getIdType().equals(3)) {
-            type = IdType.ID_WORKER;
-        } else if (query.getIdType().equals(4)) {
-            type = IdType.UUID;
-        } else if (query.getIdType().equals(5)) {
-            type = IdType.ID_WORKER_STR;
-        }
         //主键策略
-        gc.setIdType(type);
-
-
+        gc.setIdType(idTypes[query.getIdType()]);
         gc.setDateType(DateType.ONLY_DATE);
         gc.setSwagger2(query.getIsSwagger());
+        return gc;
+    }
 
-        mpg.setGlobalConfig(gc);
+    /**
+     * 获取包配置信息
+     *
+     * @param query 前端传递参数
+     * @return 包的配置信息
+     */
+    private PackageConfig getPackageConfig(DatabaseConfigQuery query) {
+        PackageConfig pc = new PackageConfig();
+        pc.setModuleName(query.getModuleName());
+        pc.setParent(query.getParentPackage());
+        pc.setController(query.getControllerName());
+        pc.setEntity(query.getEntityName());
+        pc.setService(query.getServiceName());
+        pc.setMapper(query.getMapperName());
+        return pc;
+    }
 
+    /**
+     * 获取模版配置信息
+     *
+     * @param isBackEnd 是否为后端配置
+     * @return 模版配置信息
+     */
+    private TemplateConfig getTemplateConfig(boolean isBackEnd) {
+        TemplateConfig templateConfig = new TemplateConfig();
 
-        // 3、数据源配置
+        templateConfig.setController(isBackEnd ? "template/java/controller.java" : null);
+        templateConfig.setXml(null);
+        templateConfig.setEntity(isBackEnd ? "template/java/entity.java" : null);
+        templateConfig.setEntityKt(null);
+        templateConfig.setMapper(isBackEnd ? "template/java/mapper.java" : null);
+        templateConfig.setService(isBackEnd ? "template/java/service.java" : null);
+        templateConfig.setServiceImpl(isBackEnd ? "template/java/serviceImpl.java" : null);
+        return templateConfig;
+    }
+
+    /**
+     * 设置默认的填充字段
+     *
+     * @return 填充字段列表
+     */
+    private List<TableFill> getTableFills() {
+        List<TableFill> tableFillList = new ArrayList<>();
+        tableFillList.add(new TableFill("create_time", FieldFill.INSERT));
+        tableFillList.add(new TableFill("update_time", FieldFill.INSERT_UPDATE));
+        tableFillList.add(new TableFill("delete_status", FieldFill.INSERT));
+        tableFillList.add(new TableFill("version", FieldFill.INSERT));
+        tableFillList.add(new TableFill("creator", FieldFill.INSERT));
+        tableFillList.add(new TableFill("editor", FieldFill.INSERT_UPDATE));
+        return tableFillList;
+    }
+
+    /**
+     * 获取数据源配置
+     *
+     * @param query 前端配置
+     * @return 数据源配置信息
+     */
+    private DataSourceConfig getDataSourceConfig(DatabaseConfigQuery query) {
         DataSourceConfig dsc = new DataSourceConfig();
         if (query.getDbType().equals(0)) {
             dsc.setUrl("jdbc:dm://" + query.getDbIp() + ":" + query.getDbPort() + "/" + query.getDbSchema());
@@ -147,21 +280,6 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
             dsc.setPassword(query.getDbPassword());
             dsc.setDbType(DbType.ORACLE);
 
-            dsc.setTypeConvert(new OracleTypeConvert() {
-                @Override
-                public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
-                    if ("int".equals(fieldType.toLowerCase())) {
-                        return DbColumnType.INTEGER;
-                    }
-                    if ("integer".equals(fieldType.toLowerCase())) {
-                        return DbColumnType.INTEGER;
-                    }
-                    if ("tinyint".equals(fieldType.toLowerCase())) {
-                        return DbColumnType.BOOLEAN;
-                    }
-                    return super.processTypeConvert(globalConfig, fieldType);
-                }
-            });
         } else if (query.getDbType().equals(1)) {
             dsc.setUrl("jdbc:mysql://" + query.getDbIp() + ":" + query.getDbPort() + "/" + query.getDbSchema() + "?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false");
             dsc.setDriverName("com.mysql.cj.jdbc.Driver");
@@ -169,75 +287,35 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
             dsc.setUsername(query.getDbUserName());
             dsc.setPassword(query.getDbPassword());
             dsc.setDbType(DbType.MYSQL);
-
-            dsc.setTypeConvert(new MySqlTypeConvert() {
-                @Override
-                public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
-                    if ("int".equals(fieldType.toLowerCase())) {
-                        return DbColumnType.INTEGER;
-                    }
-                    if ("integer".equals(fieldType.toLowerCase())) {
-                        return DbColumnType.INTEGER;
-                    }
-                    if ("tinyint".equals(fieldType.toLowerCase())) {
-                        return DbColumnType.BOOLEAN;
-                    }
-                    return super.processTypeConvert(globalConfig, fieldType);
-                }
-            });
         }
-
-
-        mpg.setDataSource(dsc);
-
-
-        // 4、包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setModuleName(query.getModuleName());
-        pc.setParent(query.getParentPackage());
-        pc.setController(query.getControllerName());
-        pc.setEntity(query.getEntityName());
-        pc.setService(query.getServiceName());
-        pc.setMapper(query.getMapperName());
-        mpg.setPackageInfo(pc);
-
-
-        // 4.1 模板配置
-        TemplateConfig templateConfig = new TemplateConfig();
-        if (isBackEnd) {
-            templateConfig.setController("template/java/controller.java");
-            templateConfig.setXml(null);
-            templateConfig.setEntity("template/java/entity.java");
-            templateConfig.setEntityKt(null);
-            templateConfig.setMapper("template/java/mapper.java");
-            templateConfig.setService("template/java/service.java");
-            templateConfig.setServiceImpl("template/java/serviceImpl.java");
-        } else {
-            templateConfig.setXml(null);
-            templateConfig.setController(null);
-
-            templateConfig.setEntity(null);
-            templateConfig.setEntityKt(null);
-            templateConfig.setMapper(null);
-            templateConfig.setService(null);
-            templateConfig.setServiceImpl(null);
-        }
-
-
-        mpg.setTemplate(templateConfig);
-
-        InjectionConfig ic = new InjectionConfig() {
+        dsc.setTypeConvert(new OracleTypeConvert() {
             @Override
-            public void initMap() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("basePackage", query.getParentPackage() + "." + query.getModuleName());
-                this.setMap(map);
+            public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
+                switch (fieldType.toLowerCase()) {
+                    case TYPE_INT:
+                    case TYPE_INTERGER:
+                        return DbColumnType.INTEGER;
+                    case TYPE_TINYINT:
+                        return DbColumnType.BOOLEAN;
+                    default:
+                        return super.processTypeConvert(globalConfig, fieldType);
+                }
             }
-        };
+        });
+        return dsc;
+    }
 
-
+    /**
+     * 获取文件输出配置
+     *
+     * @param fileDir   文件路径
+     * @param isBackEnd 是否为后端
+     * @param gc        全局配置
+     * @param pc        包配置
+     * @return 文件输出配置信息
+     */
+    private List<FileOutConfig> getFileOutConfig(String fileDir, boolean isBackEnd, GlobalConfig gc, PackageConfig pc) {
         List<FileOutConfig> foc = new ArrayList<>();
-
         if (isBackEnd) {
 
             //后端文件生成
@@ -292,63 +370,6 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
                 }
             });
         }
-
-
-        ic.setFileOutConfigList(foc);
-
-        mpg.setCfg(ic);
-
-
-        // 5、策略配置
-        StrategyConfig strategy = new StrategyConfig();
-
-        strategy.setInclude(query.getTableName().split(","));
-
-        //数据库表映射到实体的命名策略
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        //生成实体时去掉表前缀
-        strategy.setTablePrefix(pc.getModuleName() + "_");
-
-        //数据库表字段映射到实体的命名策略
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setEntityLombokModel(query.getIsLombok());
-
-        strategy.setRestControllerStyle(true);
-        strategy.setVersionFieldName("version");
-        //填充字段
-        List<TableFill> tableFillList = new ArrayList<>();
-        tableFillList.add(new TableFill("create_time", FieldFill.INSERT));
-        tableFillList.add(new TableFill("update_time", FieldFill.INSERT_UPDATE));
-        tableFillList.add(new TableFill("delete_status", FieldFill.INSERT));
-        tableFillList.add(new TableFill("version", FieldFill.INSERT));
-        tableFillList.add(new TableFill("creator", FieldFill.INSERT));
-        tableFillList.add(new TableFill("editor", FieldFill.INSERT_UPDATE));
-
-        strategy.setTableFillList(tableFillList);
-
-        //url中驼峰转连字符
-        strategy.setControllerMappingHyphenStyle(true);
-
-        mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-
-
-        mpg.execute();
-
-
-        if (!isBackEnd) {
-            //前端复制其他内容
-            File[] fileList = FileUtil.ls(fileProperties.getUploadPath() + "/template/vue");
-
-            for (File file : fileList) {
-                FileUtil.copy(file.getAbsolutePath(), fileDir, true);
-            }
-        }
-
-        //打包输出
-        String moduleZipFile = FileUtil.getParent(fileDir, 1) + "/" + query.getModuleName() + ".zip";
-        ZipUtil.zip(fileDir, moduleZipFile);
-
-        return fileProperties.getAbsUploadPath(moduleZipFile);
+        return foc;
     }
 }

@@ -17,6 +17,7 @@ public interface CodeGeneratorService {
      * 生成前端代码
      *
      * @param query 数据库参数
+     * @return 前端代码路径
      */
     String generateFrontEnd(DatabaseConfigQuery query);
 
@@ -24,6 +25,7 @@ public interface CodeGeneratorService {
      * 生成后端代码
      *
      * @param query 数据库参数
+     * @return 后端代码路径
      */
     String generateBackEnd(DatabaseConfigQuery query);
 }

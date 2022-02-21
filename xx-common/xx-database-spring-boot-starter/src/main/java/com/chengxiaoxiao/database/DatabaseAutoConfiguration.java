@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.chengxiaoxiao.database.config.DatabaseProperties;
 import com.chengxiaoxiao.database.config.DruidProperties;
-import com.chengxiaoxiao.database.handler.XXMetaObjectHandler;
+import com.chengxiaoxiao.database.handler.XxMetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -33,7 +33,7 @@ import javax.annotation.Resource;
 @EnableTransactionManagement
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({DatabaseProperties.class, DruidProperties.class})
-@Import({XXMetaObjectHandler.class})
+@Import({XxMetaObjectHandler.class})
 @Slf4j
 public class DatabaseAutoConfiguration {
 

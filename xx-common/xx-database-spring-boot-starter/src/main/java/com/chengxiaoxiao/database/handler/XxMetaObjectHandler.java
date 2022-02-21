@@ -18,7 +18,7 @@ import java.util.Objects;
  * @Version 1.0
  */
 @Slf4j
-public class XXMetaObjectHandler implements MetaObjectHandler {
+public class XxMetaObjectHandler implements MetaObjectHandler {
 
     @Resource
     private DatabaseProperties databaseProperties;

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -22,6 +23,12 @@ import java.util.Date;
 @Component
 public class FileUtils {
 
+    public static final String BROWSER_FF = "FF";
+    public static final String AGENT_MISE = "mise";
+    public static final String AGENT_FIREFOX = "firefox";
+    public static final String AGENT_SAFARI = "safari";
+    public static final String BROWSER_IE = "IE";
+    public static final String BROWSER_SF = "SF";
     @Resource
     private FileProperties fileProperties;
 
@@ -105,8 +112,8 @@ public class FileUtils {
      */
     public static String getBrowserFileName(HttpServletRequest request, String fileName) {
         try {
-            if ("FF".equals(getBrowser(request))) {
-                fileName = new String(fileName.getBytes("UTF-8"), "iso-8859-1");
+            if (BROWSER_FF.equals(getBrowser(request))) {
+                fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
             } else {
                 fileName = URLEncoder.encode(fileName, "UTF-8");
             }
@@ -120,14 +127,14 @@ public class FileUtils {
 
     public static String getBrowser(HttpServletRequest request) {
         String userAgent = request.getHeader("USER-AGENT").toLowerCase();
-        if (userAgent.contains("mise")) {
-            return "IE";
+        if (userAgent.contains(AGENT_MISE)) {
+            return BROWSER_IE;
         }
-        if (userAgent.contains("firefox")) {
-            return "FF";
+        if (userAgent.contains(AGENT_FIREFOX)) {
+            return BROWSER_FF;
         }
-        if (userAgent.contains("safari")) {
-            return "SF";
+        if (userAgent.contains(AGENT_SAFARI)) {
+            return BROWSER_SF;
         }
         return null;
     }
