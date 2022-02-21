@@ -10,9 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>xx-common</artifactId>
+    <packaging>pom</packaging>
     <description>
         公共模块父类
     </description>
+    <modules>
+        <module>xx-common-core</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
