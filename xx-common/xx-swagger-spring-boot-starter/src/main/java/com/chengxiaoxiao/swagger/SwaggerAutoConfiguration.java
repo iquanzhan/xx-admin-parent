@@ -1,6 +1,8 @@
 package com.chengxiaoxiao.swagger;
 
+import com.chengxiaoxiao.core.pojo.LoginUser;
 import com.chengxiaoxiao.swagger.config.SwaggerProperties;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -75,8 +77,7 @@ public class SwaggerAutoConfiguration {
         swaggerProperties.getBasePath().forEach(p -> builder.paths(PathSelectors.ant(p)));
         swaggerProperties.getExcludePath().forEach(p -> builder.paths(PathSelectors.ant(p).negate()));
 
-//        return builder.build().ignoredParameterTypes(swaggerProperties.getIgnoreClass());
-        return builder.build();
+        return builder.build().ignoredParameterTypes(LoginUser.class);
     }
 
     /**

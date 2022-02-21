@@ -18,6 +18,7 @@
         <module>xx-common-core</module>
         <module>xx-swagger-spring-boot-starter</module>
         <module>xx-fastjson-spring-boot-starter</module>
+        <module>xx-database-spring-boot-starter</module>
     </modules>
 
     <properties>
