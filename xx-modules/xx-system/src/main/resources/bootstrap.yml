@@ -3,7 +3,21 @@ server:
   port: 9001
 
 # Spring
-spring: 
+spring:
   application:
     # 应用名称
     name: xx-system
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/admin-system?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+xx:
+  swagger:
+    base-package: com.chengxiaoxiao.xx.system.controller
+    enabled: true
+    title: 系统管理API文档
+

@@ -27,20 +27,55 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <!-- Mysql Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+        <!-- web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- swagger-->
         <dependency>
             <groupId>com.chengxiaoxiao</groupId>
             <artifactId>xx-swagger-spring-boot-starter</artifactId>
             <version>${xxadmin.version}</version>
         </dependency>
+
+        <!-- core-->
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-common-core</artifactId>
+            <version>${xxadmin.version}</version>
+        </dependency>
+
+        <!-- database-->
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-database-spring-boot-starter</artifactId>
+            <version>${xxadmin.version}</version>
+        </dependency>
+
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Swagger UI -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.fox.version}</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
