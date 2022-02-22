@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
  * 没有对应角色异常信息
  *
  * @Description:
- * @Author: Cheng Xiaoxiao
+ * @Author: Cheng XiaoXiao
  * @Date: 2022-02-22 14:46
  */
 public class NotRoleException extends RuntimeException {

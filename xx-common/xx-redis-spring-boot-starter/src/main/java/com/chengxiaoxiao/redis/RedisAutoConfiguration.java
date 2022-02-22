@@ -21,7 +21,7 @@ import java.time.Duration;
  * Redis自动配置类
  *
  * @Description:
- * @Author: Cheng Xiaoxiao
+ * @Author: Cheng XiaoXiao
  * @Date: 2022-02-22 16:22
  */
 public class RedisAutoConfiguration extends CachingConfigurerSupport {

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.chengxiaoxiao.core.util.SpringContextHolderUtil,\
+    com.chengxiaoxiao.core.handler.GlobalExceptionHandler

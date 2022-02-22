@@ -21,7 +21,7 @@ import java.util.Set;
  * 权限底层实现类
  *
  * @Description:
- * @Author: Cheng Xiaoxiao
+ * @Author: Cheng XiaoXiao
  * @Date: 2022-02-22 14:39
  */
 public class AuthLogic {

@@ -12,7 +12,7 @@ public class SecurityConstant {
     /**
      * 权限验证需要忽略的路径信息
      */
-    public static String[] excludeUrls = {"/login", "/logout", "/refresh", "/swagger-ui/**", "/swagger-ui/"};
+    public static String[] excludeUrls = {"/login", "/logout", "/refresh", "/swagger-ui/**", "/swagger-ui/","/v2/api-docs","/swagger-resources","/doc.html","/webjars/**"};
 
     /**
      * 用户ID字段

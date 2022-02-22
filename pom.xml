@@ -12,6 +12,8 @@
         <module>xx-modules</module>
         <module>xx-common</module>
         <module>xx-generator</module>
+        <module>xx-auth</module>
+        <module>xx-api</module>
     </modules>
 
     <properties>

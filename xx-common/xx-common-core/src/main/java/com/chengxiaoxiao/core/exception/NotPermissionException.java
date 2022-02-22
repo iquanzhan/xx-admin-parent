@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
  * 不包含指定权限异常
  *
  * @Description:
- * @Author: Cheng Xiaoxiao
+ * @Author: Cheng XiaoXiao
  * @Date: 2022-02-22 14:54
  */
 public class NotPermissionException extends RuntimeException {

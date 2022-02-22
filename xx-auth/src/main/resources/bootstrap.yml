@@ -1,0 +1,15 @@
+server:
+  port: 9000
+
+# Spring
+spring:
+  application:
+    name: xx-auth
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+xx:
+  swagger:
+    base-package: com.chengxiaoxiao.auth.controller
+    enabled: true
+    title: 认证授权中心API文档

@@ -15,7 +15,7 @@ import java.util.Map;
  * jwt工具类
  *
  * @Description:
- * @Author: Cheng Xiaoxiao
+ * @Author: Cheng XiaoXiao
  * @Date: 2022-02-22 16:07
  */
 public class JwtUtil {
