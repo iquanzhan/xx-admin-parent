@@ -58,15 +58,13 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
 
 
     /**
-    * 按照条件查询用户信息
+    * 获取条件查询信息
     *
-    * @param userInfoQuery 查询条件
-    * @return 结果信息
+    * @param userInfoQuery 用户查询条件
+    * @return MP查询封装
     */
-    @Override
-    @GetMapping
-    public Result<List<${entity}>> list(${entity}Query ${entity?uncap_first}Query) {
-        QueryWrapper<${entity}> wrapper = new QueryWrapper<>();
+    private QueryWrapper<${entity}> get${entity}QueryWrapper(${entity}Query ${entity?uncap_first}Query) {
+    QueryWrapper<${entity}> wrapper = new QueryWrapper<>();
 <#list table.fields as field>
     <#if !field.keyIdentityFlag && field.propertyName!='id' && field.propertyName!='version' && field.propertyName!='createTime' && field.propertyName!='updateTime' && field.propertyName!='deleteStatus'>
         <#if field.propertyType=='String'>
@@ -81,7 +79,19 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
         </#if>
     </#if>
 </#list>
-            return Result.success(${entity?uncap_first}Service.list(wrapper));
+        return wrapper;
+    }
+
+    /**
+    * 按照条件查询用户信息
+    *
+    * @param userInfoQuery 查询条件
+    * @return 结果信息
+    */
+    @Override
+    @GetMapping
+    public Result<List<${entity}>> list(${entity}Query ${entity?uncap_first}Query) {
+        return Result.success(${entity?uncap_first}Service.list(get${entity}QueryWrapper(${entity?uncap_first}Query)));
     }
 
     /**
@@ -101,22 +111,8 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
             size = 10L;
         }
         Page<${entity}> pageParam = new Page<>(page, size);
-        QueryWrapper<${entity}> wrapper = new QueryWrapper<>();
-    <#list table.fields as field>
-        <#if !field.keyIdentityFlag && field.propertyName!='id' && field.propertyName!='version' && field.propertyName!='createTime' && field.propertyName!='updateTime' && field.propertyName!='deleteStatus'>
-        <#if field.propertyType=='String'>
-         if (!StringUtils.isEmpty(${entity?uncap_first}Query.get${field.propertyName?cap_first}())) {
-            wrapper.like("${field.name}", ${entity?uncap_first}Query.get${field.propertyName?cap_first}());
-         }
-        </#if>
-        <#if field.propertyType=='Integer'>
-        if (${entity?uncap_first}Query.get${field.propertyName?cap_first}()!=null) {
-            wrapper.eq("${field.name}", ${entity?uncap_first}Query.get${field.propertyName?cap_first}());
-        }
-        </#if>
-        </#if>
-    </#list>
-        ${entity?uncap_first}Service.page(pageParam, wrapper);
+
+        ${entity?uncap_first}Service.page(pageParam, get${entity}QueryWrapper(${entity?uncap_first}Query));
         PageResult<${entity}> pageResult = new PageResult<${entity}>(pageParam.getTotal(), pageParam.getSize(), pageParam.getCurrent(), pageParam.getRecords());
 
         return Result.success(pageResult);
