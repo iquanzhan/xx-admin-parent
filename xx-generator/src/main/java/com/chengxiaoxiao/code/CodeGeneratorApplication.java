@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @Description:
  * @Author: Cheng XiaoXiao
- * @Date: 2022/2/21 0021 16:55
+ * @Date: 2022/2/21  16:55
  */
 @SpringBootApplication
 public class CodeGeneratorApplication {

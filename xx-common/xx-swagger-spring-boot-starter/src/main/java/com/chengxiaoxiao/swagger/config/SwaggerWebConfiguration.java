@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  *
  * @Description: 主要用来解析swagger-ui界面使其可以正确访问
  * @Author: Cheng XiaoXiao
- * @Date: 2022/2/21 0021 15:03
+ * @Date: 2022/2/21  15:03
  */
 public class SwaggerWebConfiguration implements WebMvcConfigurer {
     @Override

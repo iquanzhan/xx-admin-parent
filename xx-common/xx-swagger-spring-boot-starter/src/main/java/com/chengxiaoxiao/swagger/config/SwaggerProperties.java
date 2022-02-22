@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @Description:
  * @Author: Cheng XiaoXiao
- * @Date: 2022/2/21 0021 15:01
+ * @Date: 2022/2/21  15:01
  */
 @Data
 @ConfigurationProperties("xx.swagger")

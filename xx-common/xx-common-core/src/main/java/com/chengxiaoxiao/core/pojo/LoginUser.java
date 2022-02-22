@@ -3,6 +3,7 @@ package com.chengxiaoxiao.core.pojo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 登录用户信息
@@ -13,7 +14,48 @@ import java.io.Serializable;
  */
 @Data
 public class LoginUser implements Serializable {
+    /**
+     * 用户ID
+     */
     private String id;
+    
+    /**
+     * 用户名
+     */
     private String userName;
+
+    /**
+     * 用户昵称
+     */
     private String nickName;
+
+    /**
+     * 用户昵称
+     */
+    private String token;
+
+    /**
+     * 过期时间
+     */
+    private Long expireTime;
+
+    /**
+     * 过期时间
+     */
+    private Long loginTime;
+
+    /**
+     * ip
+     */
+    private String ip;
+
+    /**
+     * 用户所拥有的角色信息
+     */
+    private Set<String> roles;
+
+    /**
+     * 用户所拥有的的权限信息
+     */
+    private Set<String> permissions;
 }

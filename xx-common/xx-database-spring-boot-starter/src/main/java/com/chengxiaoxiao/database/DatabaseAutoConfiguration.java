@@ -28,7 +28,7 @@ import javax.annotation.Resource;
  *
  * @Description:
  * @Author: Cheng XiaoXiao
- * @Date: 2022/2/21 0021 18:21
+ * @Date: 2022/2/21  18:21
  */
 @EnableTransactionManagement
 @Configuration(proxyBeanMethods = false)

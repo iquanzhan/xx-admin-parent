@@ -5,9 +5,9 @@ package com.chengxiaoxiao.core.constant;
  *
  * @Description:
  * @Author: Cheng XiaoXiao
- * @Date: 2022/2/21 0021 15:58
+ * @Date: 2022/2/21  15:58
  */
-public class Constants {
+public class Constant {
     /**
      * UTF-8 字符集
      */
