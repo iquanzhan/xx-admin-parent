@@ -5,18 +5,18 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 
 /**
- * 用户 服务类
+ * 用户信息 服务类
  *
  * @Description:
- * @Author: Cheng xiaoxiao
- * @Date: 2022-02-21 19:19:21
+ * @Author: Cheng XiaoXiao
+ * @Date: 2022-02-22 22:42:36
  */
 public interface UserInfoService extends IService<UserInfo> {
     /**
-     * 获取用户详情
+     * 获取用户信息详情
      *
      * @param id ID
-     * @return 单个用户详情
+     * @return 单个用户信息详情
      */
     UserInfo detailById(String id);
 
@@ -28,9 +28,9 @@ public interface UserInfoService extends IService<UserInfo> {
     void saveUserInfo(UserInfo userInfo);
 
     /**
-     * 修改用户
+     * 修改用户信息
      *
-     * @param userInfo 用户表对象
+     * @param userInfo 用户信息表对象
      */
     void updateUserInfoById(UserInfo userInfo);
 
@@ -40,4 +40,11 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param id ID
      */
     void deleteById(String id);
+
+    /**
+     * 根据用户名获取用户信息
+     * @param userName 用户名
+     * @return 用户信息
+     */
+    UserInfo getUserInfoByUserName(String userName);
 }
