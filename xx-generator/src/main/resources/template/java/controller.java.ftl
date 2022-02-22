@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ${cfg.basePackage!}.entity.${entity};
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -55,6 +56,33 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     @Resource
     private ${entity}Service ${entity?uncap_first}Service;
 
+
+    /**
+    * 按照条件查询用户信息
+    *
+    * @param userInfoQuery 查询条件
+    * @return 结果信息
+    */
+    @Override
+    @GetMapping
+    public Result<List<${entity}>> list(${entity}Query ${entity?uncap_first}Query) {
+        QueryWrapper<${entity}> wrapper = new QueryWrapper<>();
+<#list table.fields as field>
+    <#if !field.keyIdentityFlag && field.propertyName!='id' && field.propertyName!='version' && field.propertyName!='createTime' && field.propertyName!='updateTime' && field.propertyName!='deleteStatus'>
+        <#if field.propertyType=='String'>
+        if (!StringUtils.isEmpty(${entity?uncap_first}Query.get${field.propertyName?cap_first}())) {
+            wrapper.like("${field.name}", ${entity?uncap_first}Query.get${field.propertyName?cap_first}());
+        }
+        </#if>
+        <#if field.propertyType=='Integer'>
+        if (${entity?uncap_first}Query.get${field.propertyName?cap_first}()!=null) {
+            wrapper.eq("${field.name}", ${entity?uncap_first}Query.get${field.propertyName?cap_first}());
+        }
+        </#if>
+    </#if>
+</#list>
+            return Result.success(${entity?uncap_first}Service.list(wrapper));
+    }
 
     /**
     * 分页及条件查询用户信息

@@ -34,7 +34,7 @@ package ${cfg.basePackage!}.vo.query;
     @Accessors(chain = true)
 </#if>
 <#if swagger2>
-    @ApiModel(value="${entity}对象", description="${table.comment!}")
+    @ApiModel(value="${tableName!}条件查询对象", description="用于条件查询使用")
 </#if>
 <#if superEntityClass??>
     public class ${entity}Query extends ${superEntityClass}<#if activeRecord><${entity}></#if> {

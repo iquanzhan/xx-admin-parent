@@ -24,6 +24,14 @@ public interface ${entity}ControllerApi {
 
 
     /**
+    * 按照条件查询用户信息
+    *
+    * @param ${entity?uncap_first}Query 查询条件
+    * @return 结果信息
+    */
+    @ApiOperation(value = "按照条件查询${tableName}信息")
+    Result<List<${entity}>> list(${entity}Query ${entity?uncap_first}Query);
+    /**
     * 分页及条件查询${tableName}信息
     * @param page 页码
     * @param size 分页大小
