@@ -27,7 +27,7 @@ public class SecurityConstant {
     /**
      * 授权信息字段
      */
-    public static final String AUTHORIZATION_HEADER = "authorization";
+    public static final String AUTHORIZATION = "authorization";
 
     /**
      * 请求来源

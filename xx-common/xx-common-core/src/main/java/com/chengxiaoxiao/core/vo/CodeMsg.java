@@ -29,9 +29,9 @@ public class CodeMsg implements Serializable {
     private static String CODE_SUCCESS = "0";
 
     /**
-     * 通用异常
+     * 成功的返回信息
      */
-    public static CodeMsg ERROR = new CodeMsg(CODE_SUCCESS, "success");
+    public static CodeMsg SUCCESS = new CodeMsg(CODE_SUCCESS, "success");
 
     /**
      * 用户异常

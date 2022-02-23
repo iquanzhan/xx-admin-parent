@@ -21,6 +21,7 @@
         <module>xx-database-spring-boot-starter</module>
         <module>xx-security-spring-boot-starter</module>
         <module>xx-redis-spring-boot-starter</module>
+        <module>xx-openfeign-spring-boot-starter</module>
     </modules>
 
     <properties>
