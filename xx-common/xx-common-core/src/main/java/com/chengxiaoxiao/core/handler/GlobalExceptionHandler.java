@@ -1,6 +1,6 @@
 package com.chengxiaoxiao.core.handler;
 
-import com.chengxiaoxiao.core.exception.GlobalException;
+import com.chengxiaoxiao.core.exception.*;
 import com.chengxiaoxiao.core.vo.CodeMsg;
 import com.chengxiaoxiao.core.vo.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +26,54 @@ import java.util.List;
 @ResponseBody
 @Slf4j
 public class GlobalExceptionHandler {
+
+    /**
+     * 处理无角色产生的异常
+     *
+     * @param e 异常对象
+     * @return 异常信息JSON
+     */
+    @ExceptionHandler(value = NotRoleException.class)
+    public Result<String> handleGlobalException(NotRoleException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(CodeMsg.NO_ROLE_ERROR.fillArgs(e.getMessage()));
+    }
+
+    /**
+     * 处理未权限产生的异常
+     *
+     * @param e 异常对象
+     * @return 异常信息JSON
+     */
+    @ExceptionHandler(value = NotPermissionException.class)
+    public Result<String> handleGlobalException(NotPermissionException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(CodeMsg.NO_PERMISSION_ERROR.fillArgs(e.getMessage()));
+    }
+
+    /**
+     * 处理未登录产生的异常
+     *
+     * @param e 异常对象
+     * @return 异常信息JSON
+     */
+    @ExceptionHandler(value = NotLoginException.class)
+    public Result<String> handleGlobalException(NotLoginException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(CodeMsg.USER_NOT_LOGIN_ERROR);
+    }
+
+    /**
+     * 处理内部无权限产生的异常
+     *
+     * @param e 异常对象
+     * @return 异常信息JSON
+     */
+    @ExceptionHandler(value = InnerAuthException.class)
+    public Result<String> handleGlobalException(InnerAuthException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(CodeMsg.NO_INNER_ERROR);
+    }
 
     /**
      * 处理系统逻辑产生的异常
@@ -100,4 +148,6 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage(), e);
         return Result.error(CodeMsg.OTHER_ERROR.fillArgs(e.getMessage()));
     }
+
+
 }

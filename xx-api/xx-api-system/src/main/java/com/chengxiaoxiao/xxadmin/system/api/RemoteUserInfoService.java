@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
  * @Author: Cheng XiaoXiao
  * @Date: 2022-02-23 9:45
  */
-@FeignClient(value = ServiceNameConstant.SYSTEM_SERVICE)
+@FeignClient(value = ServiceNameConstant.SYSTEM_SERVICE,url = "http://localhost:9001")
 public interface RemoteUserInfoService {
     /**
      * 根据用户名查询用户信息
@@ -26,6 +26,6 @@ public interface RemoteUserInfoService {
      * @param source   接口来源
      * @return 用户基本信息
      */
-    @GetMapping("/info/{userName}")
+    @GetMapping("/user-info/info/{userName}")
     Result<UserInfo> getUserInfoByUserName(@PathVariable("userName") String userName, @RequestHeader(SecurityConstant.FROM_SOURCE) String source);
 }

@@ -58,4 +58,13 @@ public class AuthUtil {
     public static void verifyLoginUserExpire(LoginUser loginUser) {
         authLogic.verifyLoginUserExpire(loginUser);
     }
+
+    /**
+     * 根据用户KEY删除注销用户
+     *
+     * @param userKey 用户KEY
+     */
+    public static void logoutByUserKey(String userKey) {
+        authLogic.logoutByUserKey(userKey);
+    }
 }

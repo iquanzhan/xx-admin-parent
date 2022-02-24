@@ -1,15 +1,17 @@
 package com.chengxiaoxiao.xx.system.controller;
 
-import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chengxiaoxiao.core.validator.group.AddGroup;
 import com.chengxiaoxiao.core.validator.group.UpdateGroup;
 import com.chengxiaoxiao.core.vo.PageResult;
 import com.chengxiaoxiao.core.vo.Result;
+import com.chengxiaoxiao.security.annotation.InnerAuth;
+import com.chengxiaoxiao.security.annotation.RequiresLogin;
 import com.chengxiaoxiao.xx.system.api.UserInfoControllerApi;
 import com.chengxiaoxiao.xx.system.service.UserInfoService;
 import com.chengxiaoxiao.xx.system.vo.query.UserInfoQuery;
+import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -109,6 +111,7 @@ public class UserInfoController implements UserInfoControllerApi {
      */
     @GetMapping("/info/{userName}")
     @Override
+    @InnerAuth
     public Result<UserInfo> getUserInfoByUserName(@PathVariable("userName") String userName) {
         return Result.success(userInfoService.getUserInfoByUserName(userName));
     }
@@ -121,6 +124,7 @@ public class UserInfoController implements UserInfoControllerApi {
      */
     @Override
     @GetMapping("/{id}")
+    @RequiresLogin
     public Result<UserInfo> detail(@PathVariable String id) {
         return Result.success(userInfoService.detailById(id));
     }

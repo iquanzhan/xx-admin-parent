@@ -10,6 +10,7 @@ import com.chengxiaoxiao.security.annotation.RequiresPermissions;
 import com.chengxiaoxiao.security.annotation.RequiresRoles;
 import com.chengxiaoxiao.security.service.TokenService;
 import com.chengxiaoxiao.security.utils.SecurityUtil;
+import io.jsonwebtoken.lang.Collections;
 import org.springframework.util.PatternMatchUtils;
 import org.springframework.util.StringUtils;
 
@@ -160,6 +161,9 @@ public class AuthLogic {
 
     private void checkPermissionAnd(String[] permissions) {
         Set<String> permissionList = getPermissionList();
+        if (permissionList == null || Collections.isEmpty(permissionList)) {
+            throw new NotPermissionException(permissions);
+        }
         for (String permission : permissions) {
             if (!hasPermission(permissionList, permission)) {
                 throw new NotPermissionException(permission);
@@ -183,6 +187,7 @@ public class AuthLogic {
 
     /**
      * 根据token获取当前登录用户信息
+     *
      * @param token token
      * @return 登录用户
      */
@@ -192,9 +197,18 @@ public class AuthLogic {
 
     /**
      * 判断当前登录用户是否过期
+     *
      * @param loginUser 登录用户信息
      */
     public void verifyLoginUserExpire(LoginUser loginUser) {
         tokenService.verifyToken(loginUser);
+    }
+
+    /**
+     * 根据用户KEY删除用户
+     * @param userKey 用户表示
+     */
+    public void logoutByUserKey(String userKey) {
+        tokenService.deleteToken(userKey);
     }
 }

@@ -30,18 +30,18 @@ public class RedisKeyConstant {
     /**
      * 应用总体前缀
      */
-    private static final String PREFIX = "chengxiaoxiao:lizhi-edu-";
+    private static final String PREFIX = "xx-admin-";
 
 
     /***************************************************用户权限中心*******************************************************/
     /**
      * 验证中心基础路径
      */
-    private static final String MODULE_AUTH_BASE_KEY = PREFIX + "auth-center-";
+    private static final String MODULE_AUTH_BASE_KEY = PREFIX + "auth-center:";
     /**
      * 用户TOKEN KEY
      */
-    public static final String USER_TOKEN = MODULE_AUTH_BASE_KEY + "login-tokens:%s";
+    public static final String USER_TOKEN = MODULE_AUTH_BASE_KEY + "login-tokens:";
 
     /***************************************************用户权限中心*******************************************************/
 }

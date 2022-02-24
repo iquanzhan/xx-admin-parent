@@ -7,7 +7,9 @@ import com.chengxiaoxiao.security.annotation.InnerAuth;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.Ordered;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -18,6 +20,8 @@ import java.util.Objects;
  * @Author: Cheng XiaoXiao
  * @Date: 2022/2/21  22:57
  */
+@Aspect
+@Component
 public class InnerAuthAspect implements Ordered {
     @Around("@annotation(innerAuth)")
     public Object innerAround(ProceedingJoinPoint point, InnerAuth innerAuth) throws Throwable {

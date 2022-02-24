@@ -31,7 +31,7 @@ public interface UserControllerApi {
      * @return 状态信息
      */
     @ApiOperation("用户注销")
-    Result<Boolean> logout();
+    Result<?> logout();
 
     /**
      * 主动刷新token有效期

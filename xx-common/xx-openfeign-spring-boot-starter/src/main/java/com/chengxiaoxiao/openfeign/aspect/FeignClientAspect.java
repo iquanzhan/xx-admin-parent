@@ -39,7 +39,7 @@ public class FeignClientAspect {
                     && returnVal instanceof Result) {
                 Result<?> result = (Result<?>) returnVal;
 
-                if (CodeMsg.SUCCESS.getCode().equals(result.getCode())) {
+                if (!CodeMsg.SUCCESS.getCode().equals(result.getCode())) {
                     throw new GlobalException(new CodeMsg(result.getCode(), result.getMsg()));
                 }
             }

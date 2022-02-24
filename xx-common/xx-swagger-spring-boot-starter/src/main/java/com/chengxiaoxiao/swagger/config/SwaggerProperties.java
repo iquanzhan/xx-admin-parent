@@ -1,5 +1,6 @@
 package com.chengxiaoxiao.swagger.config;
 
+import com.chengxiaoxiao.core.constant.TokenConstant;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -41,7 +42,7 @@ public class SwaggerProperties {
     /**
      * TOKEN在Header中的KEY
      */
-    private String tokenHeader = "TOKEN";
+    private String tokenHeader = TokenConstant.AUTHENTICATION;
 
     /**
      * 在basePath基础上需要排除的url规则

@@ -5,6 +5,7 @@ import com.chengxiaoxiao.core.pojo.LoginUser;
 import com.chengxiaoxiao.security.auth.AuthUtil;
 import com.chengxiaoxiao.security.utils.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author: Cheng XiaoXiao
  * @Date: 2022-02-22 14:39
  */
+@Component
 public class HeaderInterceptor implements AsyncHandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

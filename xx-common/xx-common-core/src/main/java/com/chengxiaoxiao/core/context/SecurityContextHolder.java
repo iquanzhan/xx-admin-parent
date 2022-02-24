@@ -3,7 +3,9 @@ package com.chengxiaoxiao.core.context;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.chengxiaoxiao.core.exception.GlobalException;
 import com.chengxiaoxiao.core.pojo.LoginUser;
+import com.chengxiaoxiao.core.vo.CodeMsg;
 
 
 /**
@@ -48,6 +50,24 @@ public class SecurityContextHolder {
      */
     public static String getUserId() {
         LoginUser user = getUser();
+
+        if (user == null) {
+            throw new GlobalException(CodeMsg.USER_NOT_LOGIN_ERROR);
+        }
         return StrUtil.nullToDefault(user.getId(), StrUtil.EMPTY);
+    }
+
+    /**
+     * 获取登录用户的KEY
+     *
+     * @return 登录用户KEY
+     */
+    public static String getUserKey() {
+        LoginUser user = getUser();
+
+        if (user == null) {
+            throw new GlobalException(CodeMsg.USER_NOT_LOGIN_ERROR);
+        }
+        return StrUtil.nullToDefault(user.getToken(), StrUtil.EMPTY);
     }
 }

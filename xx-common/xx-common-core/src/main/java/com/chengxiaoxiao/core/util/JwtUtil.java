@@ -6,7 +6,6 @@ import com.chengxiaoxiao.core.constant.TokenConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import sun.security.util.SecurityConstants;
 
 import java.util.Date;
 import java.util.Map;
@@ -63,6 +62,17 @@ public class JwtUtil {
     public static String getUserId(String token) {
         Claims claims = parseToken(token);
         return getValue(claims, SecurityConstant.USER_ID);
+    }
+
+    /**
+     * 根据令牌获取用户KEY
+     *
+     * @param token 令牌
+     * @return 用户ID
+     */
+    public static String getUserKey(String token) {
+        Claims claims = parseToken(token);
+        return getValue(claims, SecurityConstant.USER_KEY);
     }
 
     /**

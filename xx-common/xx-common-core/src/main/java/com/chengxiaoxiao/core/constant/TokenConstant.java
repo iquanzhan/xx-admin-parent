@@ -11,7 +11,7 @@ public class TokenConstant {
     /**
      * token前缀
      */
-    public static final String PREFIX = "ZDPX-";
+    public static final String PREFIX = "xxadmin-";
     /**
      * token 中的Header标识
      */

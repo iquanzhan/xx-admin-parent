@@ -72,7 +72,6 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.fox.version}</version>
         </dependency>
 
         <!-- xx-system-api -->
@@ -82,6 +81,11 @@
             <version>${xxadmin.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-security-spring-boot-starter</artifactId>
+            <version>${xxadmin.version}</version>
+        </dependency>
 
     </dependencies>
 

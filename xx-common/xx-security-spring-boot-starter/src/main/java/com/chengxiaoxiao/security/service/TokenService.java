@@ -35,8 +35,8 @@ public class TokenService {
         LoginUser user = null;
         try {
             if (StringUtils.isNotEmpty(token)) {
-                String userId = JwtUtil.getUserId(token);
-                user = redisService.getCacheObject(getTokenKey(userId));
+                String userKey = JwtUtil.getUserKey(token);
+                user = redisService.getCacheObject(getTokenKey(userKey));
                 return user;
             }
         } catch (Exception e) {
@@ -77,5 +77,17 @@ public class TokenService {
         loginUser.setExpireTime(loginUser.getLoginTime() + RedisKeyConstant.EXPIRATION * 60 * 1000);
         String userKey = getTokenKey(loginUser.getToken());
         redisService.setCacheObject(userKey, loginUser, RedisKeyConstant.EXPIRATION, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 根据用户KEY删除TOKEN
+     *
+     * @param userKey 用户标识
+     */
+    public void deleteToken(String userKey) {
+        if (StringUtils.isNotEmpty(userKey)) {
+            String userTokenKey = getTokenKey(userKey);
+            redisService.deleteObject(userTokenKey);
+        }
     }
 }

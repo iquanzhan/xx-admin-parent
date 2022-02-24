@@ -187,6 +187,13 @@
                 <version>${druid.version}</version>
             </dependency>
 
+            <!-- Swagger UI -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.fox.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

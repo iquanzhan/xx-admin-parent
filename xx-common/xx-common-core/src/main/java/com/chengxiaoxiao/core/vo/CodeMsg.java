@@ -54,6 +54,9 @@ public class CodeMsg implements Serializable {
      */
     public static CodeMsg OTHER_ERROR = new CodeMsg("B0001", "系统发生异常：%s");
     public static CodeMsg NOT_PAGE_FOUND = new CodeMsg("B0002", "Page Not Found");
+    public static CodeMsg NO_INNER_ERROR = new CodeMsg("B0003", "没有授权调用内部接口，无法访问本功能");
+    public static CodeMsg NO_ROLE_ERROR = new CodeMsg("B0004", "当前用户无[%s]的角色，没有权限访问本功能");
+    public static CodeMsg NO_PERMISSION_ERROR = new CodeMsg("B0005", "当前用户无[%s]的权限，无法访问本功能");
 
     public static CodeMsg ONLY_ONLY_ERROR = new CodeMsg("B0101", "该数据已经存在");
     public static CodeMsg DB_INSERT_ERROR = new CodeMsg("B0102", "数据库表 添加数据异常：%s");

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+import static com.chengxiaoxiao.core.constant.Constant.CODE_SUCCESS;
+
 /**
  * Result
  *
@@ -20,6 +22,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ApiModel("统一结果返回类")
 public class Result<T> implements Serializable {
+    public static final String OPERATE_SUCCESS = "操作成功";
     @ApiModelProperty("错误码")
     private String code;
     @ApiModelProperty("消息提示")
@@ -31,6 +34,18 @@ public class Result<T> implements Serializable {
         this.code = "0";
         this.msg = "请求成功";
         this.data = data;
+    }
+
+    /**
+     * 执行成功的回调-用于操作处理
+     *
+     * @return 请求成功的数据信息
+     */
+    public static Result<?> success() {
+        Result<Object> result = new Result<>();
+        result.setCode(CODE_SUCCESS);
+        result.setMsg(OPERATE_SUCCESS);
+        return result;
     }
 
     /**

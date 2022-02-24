@@ -5,8 +5,6 @@ import com.chengxiaoxiao.core.context.SecurityContextHolder;
 import com.chengxiaoxiao.core.pojo.LoginUser;
 import com.chengxiaoxiao.core.util.RequestUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import sun.security.util.SecurityConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -25,6 +23,13 @@ public class SecurityUtil {
      */
     public static String getUserId() {
         return SecurityContextHolder.getUserId();
+    }
+    /**
+     * 获取用户KEY
+     * @return 用户id
+     */
+    public static String getUserKey() {
+        return SecurityContextHolder.getUserKey();
     }
 
     /**
