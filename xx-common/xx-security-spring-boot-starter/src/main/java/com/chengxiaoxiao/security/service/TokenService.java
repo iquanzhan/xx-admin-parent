@@ -72,7 +72,7 @@ public class TokenService {
      *
      * @param loginUser 登录用户
      */
-    private void refreshToken(LoginUser loginUser) {
+    public void refreshToken(LoginUser loginUser) {
         loginUser.setLoginTime(System.currentTimeMillis());
         loginUser.setExpireTime(loginUser.getLoginTime() + RedisKeyConstant.EXPIRATION * 60 * 1000);
         String userKey = getTokenKey(loginUser.getToken());

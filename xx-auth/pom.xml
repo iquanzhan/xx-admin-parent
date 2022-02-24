@@ -25,20 +25,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- web-->
+        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- swagger-->
+        <!-- Swagger-->
         <dependency>
             <groupId>com.chengxiaoxiao</groupId>
             <artifactId>xx-swagger-spring-boot-starter</artifactId>
             <version>${xxadmin.version}</version>
         </dependency>
 
-        <!-- core-->
+        <!-- Core-->
         <dependency>
             <groupId>com.chengxiaoxiao</groupId>
             <artifactId>xx-common-core</artifactId>
@@ -50,6 +50,19 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- System Api -->
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-api-system</artifactId>
+            <version>${xxadmin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-security-spring-boot-starter</artifactId>
+            <version>${xxadmin.version}</version>
         </dependency>
 
     </dependencies>

@@ -14,6 +14,12 @@ public class SecurityConstant {
      */
     public static String[] excludeUrls = {"/login", "/logout", "/refresh", "/swagger-ui/**", "/swagger-ui/","/v2/api-docs","/swagger-resources","/doc.html","/webjars/**"};
 
+
+    /**
+     * 用户KEY字段
+     */
+    public static final String USER_KEY = "user_key";
+
     /**
      * 用户ID字段
      */

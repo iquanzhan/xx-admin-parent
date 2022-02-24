@@ -23,5 +23,5 @@ public class LoginInfoVo implements Serializable {
     @ApiModelProperty("token")
     private String token;
     @ApiModelProperty("过期时间,单位(分钟)")
-    private String expireTime;
+    private Long expireTime;
 }
