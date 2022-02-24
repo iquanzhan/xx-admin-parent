@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chengxiaoxiao.core.exception.GlobalException;
 import com.chengxiaoxiao.core.vo.CodeMsg;
-import com.chengxiaoxiao.xx.system.entity.UserInfo;
+import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 import com.chengxiaoxiao.xx.system.mapper.UserInfoMapper;
 import com.chengxiaoxiao.xx.system.service.UserInfoService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

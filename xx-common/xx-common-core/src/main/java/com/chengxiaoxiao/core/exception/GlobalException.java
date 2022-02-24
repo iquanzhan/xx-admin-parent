@@ -1,8 +1,8 @@
 package com.chengxiaoxiao.core.exception;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.chengxiaoxiao.core.vo.CodeMsg;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -13,9 +13,13 @@ import lombok.Getter;
  * @Date: 2020/6/1 16:33
  */
 @Getter
-@AllArgsConstructor
 public class GlobalException extends RuntimeException {
 
     private static final long serialVersionUID = 7331906799009231998L;
     private CodeMsg cm;
+
+    public GlobalException(CodeMsg cm) {
+        super(StrUtil.format("{}-{}",cm.getCode(),cm.getMsg()));
+        this.cm = cm;
+    }
 }

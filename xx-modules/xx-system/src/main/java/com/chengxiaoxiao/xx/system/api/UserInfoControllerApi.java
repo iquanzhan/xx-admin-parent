@@ -1,8 +1,8 @@
 package com.chengxiaoxiao.xx.system.api;
 
+import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 import com.chengxiaoxiao.core.vo.PageResult;
 import com.chengxiaoxiao.core.vo.Result;
-import com.chengxiaoxiao.xx.system.entity.UserInfo;
 import com.chengxiaoxiao.xx.system.vo.query.UserInfoQuery;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,7 +52,7 @@ public interface UserInfoControllerApi {
      * @return 用户信息
      */
     @ApiOperation(value = "根据用户名获取用户信息")
-    Result<UserInfo> list(@ApiParam(name = "userName", value = "用户名", type = "path") String userName);
+    Result<UserInfo> getUserInfoByUserName(@ApiParam(name = "userName", value = "用户名", type = "path") String userName);
 
     /**
      * 根据ID获取用户信息详情

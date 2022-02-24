@@ -1,5 +1,6 @@
 package com.chengxiaoxiao.xx.system.controller;
 
+import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chengxiaoxiao.core.validator.group.AddGroup;
@@ -7,7 +8,6 @@ import com.chengxiaoxiao.core.validator.group.UpdateGroup;
 import com.chengxiaoxiao.core.vo.PageResult;
 import com.chengxiaoxiao.core.vo.Result;
 import com.chengxiaoxiao.xx.system.api.UserInfoControllerApi;
-import com.chengxiaoxiao.xx.system.entity.UserInfo;
 import com.chengxiaoxiao.xx.system.service.UserInfoService;
 import com.chengxiaoxiao.xx.system.vo.query.UserInfoQuery;
 import org.apache.commons.lang3.StringUtils;
@@ -109,7 +109,7 @@ public class UserInfoController implements UserInfoControllerApi {
      */
     @GetMapping("/info/{userName}")
     @Override
-    public Result<UserInfo> list(@PathVariable("userName") String userName) {
+    public Result<UserInfo> getUserInfoByUserName(@PathVariable("userName") String userName) {
         return Result.success(userInfoService.getUserInfoByUserName(userName));
     }
 

@@ -22,5 +22,28 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+    <dependencies>
+
+        <!-- OpenFeign Starter -->
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-openfeign-spring-boot-starter</artifactId>
+            <version>${xxadmin.version}</version>
+        </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

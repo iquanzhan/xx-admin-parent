@@ -1,7 +1,7 @@
 package com.chengxiaoxiao.xx.system.service;
 
-import com.chengxiaoxiao.xx.system.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 
 
 /**

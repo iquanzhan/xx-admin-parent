@@ -1,4 +1,4 @@
-package com.chengxiaoxiao.xx.system.entity;
+package com.chengxiaoxiao.xxadmin.system.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

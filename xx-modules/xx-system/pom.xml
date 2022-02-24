@@ -75,6 +75,13 @@
             <version>${swagger.fox.version}</version>
         </dependency>
 
+        <!-- xx-system-api -->
+        <dependency>
+            <groupId>com.chengxiaoxiao</groupId>
+            <artifactId>xx-api-system</artifactId>
+            <version>${xxadmin.version}</version>
+        </dependency>
+
 
     </dependencies>
 
