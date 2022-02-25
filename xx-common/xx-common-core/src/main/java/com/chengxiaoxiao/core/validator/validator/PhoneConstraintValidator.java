@@ -2,6 +2,7 @@ package com.chengxiaoxiao.core.validator.validator;
 
 
 import com.chengxiaoxiao.core.validator.annotation.Phone;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -17,6 +18,9 @@ import javax.validation.ConstraintValidatorContext;
 public class PhoneConstraintValidator implements ConstraintValidator<Phone, String> {
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return value != null && value.trim().length() >= 12;
+        if (StringUtils.isNotBlank(value)) {
+            return value.trim().length() == 11;
+        }
+        return true;
     }
 }
