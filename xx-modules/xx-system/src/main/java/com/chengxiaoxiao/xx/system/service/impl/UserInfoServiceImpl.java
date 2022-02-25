@@ -7,6 +7,7 @@ import com.chengxiaoxiao.core.vo.CodeMsg;
 import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 import com.chengxiaoxiao.xx.system.mapper.UserInfoMapper;
 import com.chengxiaoxiao.xx.system.service.UserInfoService;
+import com.chengxiaoxiao.xxadmin.system.enums.UserStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      */
     @Override
     public void saveUserInfo(UserInfo userInfo) {
+        //判断用户名是否已存在
+        UserInfo oldUser = this.getByUserName(userInfo.getUserName());
+        if (oldUser != null) {
+            throw new GlobalException(CodeMsg.USER_NAME_EXIST);
+        }
+
         userInfo.setPassword(bCryptPasswordEncoder.encode(userInfo.getPassword()));
+        userInfo.setStatus(UserStatus.OK.getCode());
         this.baseMapper.insert(userInfo);
     }
 
@@ -54,6 +62,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      */
     @Override
     public void updateUserInfoById(UserInfo userInfo) {
+        //判断用户名是否已存在
+        UserInfo oldUser = this.getByUserName(userInfo.getUserName());
+        if (oldUser != null && !oldUser.getId().equals(userInfo.getId())) {
+            throw new GlobalException(CodeMsg.USER_NAME_EXIST);
+        }
+
+        userInfo.setPassword(null);
+        userInfo.setStatus(UserStatus.OK.getCode());
         this.baseMapper.updateById(userInfo);
     }
 
@@ -74,11 +90,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      * @return 用户信息
      */
     @Override
-    public UserInfo getUserInfoByUserName(String userName) {
-        UserInfo userInfo = this.getOne(new QueryWrapper<UserInfo>().eq("user_name", userName));
-        if (null == userInfo) {
-            throw new GlobalException(CodeMsg.USER_PASSWORD_INCORRENT);
-        }
-        return userInfo;
+    public UserInfo getByUserName(String userName) {
+        return this.getOne(new QueryWrapper<UserInfo>().eq("user_name", userName));
     }
 }

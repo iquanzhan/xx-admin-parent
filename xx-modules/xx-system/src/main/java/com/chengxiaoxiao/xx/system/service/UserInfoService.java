@@ -42,9 +42,9 @@ public interface UserInfoService extends IService<UserInfo> {
     void deleteById(String id);
 
     /**
-     * 根据用户名获取用户信息
+     * 根据用户名获取用户信息-如无信息保存显示
      * @param userName 用户名
      * @return 用户信息
      */
-    UserInfo getUserInfoByUserName(String userName);
+    UserInfo getByUserName(String userName);
 }

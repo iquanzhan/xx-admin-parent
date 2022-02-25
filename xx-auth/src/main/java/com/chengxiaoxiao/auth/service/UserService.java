@@ -52,6 +52,9 @@ public class UserService {
     public LoginInfoVo login(LoginInfoForm loginInfoForm) {
         Result<UserInfo> userInfoResult = remoteUserInfoService.getUserInfoByUserName(loginInfoForm.getUserName(), SecurityConstant.INNER);
         UserInfo userInfo = userInfoResult.getData();
+        if (userInfo == null) {
+            throw new GlobalException(CodeMsg.USER_PASSWORD_INCORRENT);
+        }
 
         //判断用户状态
         if (UserStatus.DISABLE.getCode().equals(userInfo.getStatus())) {
@@ -93,7 +96,7 @@ public class UserService {
      */
     public void logout() {
         String token = SecurityUtil.getToken();
-        if(StringUtils.isNotEmpty(token)){
+        if (StringUtils.isNotEmpty(token)) {
             //获取用户key，在redis中进行删除
             String userKey = SecurityUtil.getUserKey();
             AuthUtil.logoutByUserKey(userKey);

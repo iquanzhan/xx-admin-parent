@@ -113,7 +113,7 @@ public class UserInfoController implements UserInfoControllerApi {
     @Override
     @InnerAuth
     public Result<UserInfo> getUserInfoByUserName(@PathVariable("userName") String userName) {
-        return Result.success(userInfoService.getUserInfoByUserName(userName));
+        return Result.success(userInfoService.getByUserName(userName));
     }
 
     /**
