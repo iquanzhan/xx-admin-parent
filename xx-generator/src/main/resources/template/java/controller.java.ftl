@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ${cfg.basePackage!}.entity.${entity};
+import ${cfg.basePackage!}.vo.query.${entity}Query;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -29,7 +30,7 @@ import ${superControllerClassPackage};
 </#if>
 
 <#--声明表名称-->
-<#assign tableName="${table.comment?substring(0,table.comment?length-1)}"/>
+<#assign tableName="${table.comment?replace('信息','')?replace('表','')}"/>
 
 
 /**
@@ -60,8 +61,8 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     /**
     * 获取条件查询信息
     *
-    * @param userInfoQuery 用户查询条件
-    * @return MP查询封装
+    * @param ${entity?uncap_first}Query 查询条件
+    * @return 查询封装
     */
     private QueryWrapper<${entity}> get${entity}QueryWrapper(${entity}Query ${entity?uncap_first}Query) {
     QueryWrapper<${entity}> wrapper = new QueryWrapper<>();
@@ -83,10 +84,10 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     }
 
     /**
-    * 按照条件查询用户信息
-    *
-    * @param userInfoQuery 查询条件
-    * @return 结果信息
+    * 按照条件查询${tableName!}信息
+*
+    * @param ${entity?uncap_first}Query 查询条件
+    * @return 条件结果信息
     */
     @Override
     @GetMapping
@@ -95,7 +96,7 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     }
 
     /**
-    * 分页及条件查询用户信息
+    * 分页及条件查询${tableName!}信息
     * @param page 页码
     * @param size 分页大小
     * @param  ${entity?uncap_first}Query 查询条件
@@ -131,7 +132,7 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     }
 
     /**
-    * 增加${tableName}
+    * 增加${tableName}信息
     *
     * @param ${entity?uncap_first} ${tableName}增加实体
     * @return 增加后的${tableName}信息
@@ -144,7 +145,7 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     }
 
     /**
-    * 修改${tableName}
+    * 修改${tableName}信息
     *
     * @param id             ${tableName}ID
     * @param ${entity?uncap_first} ${tableName}修改实体
@@ -160,10 +161,10 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
 
 
     /**
-    * 删除${tableName}
+    * 删除${tableName}信息
     *
     * @param id ${tableName}ID
-    * @return 删除结果信息
+    * @return 删除结果
     */
     @Override
     @DeleteMapping("/{id}")
@@ -173,10 +174,10 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     }
 
     /**
-    * 删除${tableName}
+    * 删除${tableName}信息
     *
     * @param idList ${tableName}ID数组
-    * @return 删除结果信息
+    * @return 删除结果
     */
     @Override
     @DeleteMapping("/batchRemove")

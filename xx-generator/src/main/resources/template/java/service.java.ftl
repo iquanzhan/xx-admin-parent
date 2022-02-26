@@ -5,7 +5,7 @@ import ${superServiceClassPackage};
 
 
 <#--声明表名称-->
-<#assign tableName="${table.comment?substring(0,table.comment?length-1)}"/>
+<#assign tableName="${table.comment?replace('信息','')?replace('表','')}"/>
 /**
 * ${tableName!} 服务类
 *
@@ -31,13 +31,13 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
     void save${entity}(${entity} ${entity?uncap_first});
 
     /**
-    * 修改${tableName!}
-    * @param ${entity?uncap_first} ${table.comment!}对象
+    * 修改${tableName!}信息
+    * @param ${entity?uncap_first} ${tableName!}对象
     */
     void update${entity}ById(${entity} ${entity?uncap_first});
 
     /**
-    * 根据ID删除
+    * 根据ID删除信息
     * @param id ID
     */
     void deleteById(String id);

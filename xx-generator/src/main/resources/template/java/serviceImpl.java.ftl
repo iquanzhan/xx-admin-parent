@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 
 <#--声明表名称-->
-<#assign tableName="${table.comment?substring(0,table.comment?length-1)}"/>
+<#assign tableName="${table.comment?replace('信息','')?replace('表','')}"/>
 
 
 /**
-* ${tableName!} 服务实现类
+* ${tableName!}信息 服务实现类
 *
 * @Description:
 * @Author: ${author}
@@ -37,7 +37,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     /**
     * 增加${tableName!}信息
-    * @param ${entity?uncap_first} ${tableName!}信息
+    * @param ${entity?uncap_first} ${tableName!}对象
     */
     @Override
     public void save${entity}(${entity} ${entity?uncap_first}){
@@ -45,8 +45,8 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     }
 
     /**
-    * 修改${tableName!}
-    * @param ${entity?uncap_first} ${table.comment!}对象
+    * 修改${tableName!}信息
+    * @param ${entity?uncap_first} ${tableName!}对象
     */
     @Override
     public void update${entity}ById(${entity} ${entity?uncap_first}){

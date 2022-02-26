@@ -10,7 +10,7 @@ import com.chengxiaoxiao.core.vo.PageResult;
 import ${cfg.basePackage!}.vo.query.${entity}Query;
 
 <#--声明表名称-->
-<#assign tableName="${table.comment?substring(0,table.comment?length-1)}"/>
+<#assign tableName="${table.comment?replace('信息','')?replace('表','')}"/>
 
 /**
  * ${tableName} 接口Swagger Api
@@ -24,7 +24,7 @@ public interface ${entity}ControllerApi {
 
 
     /**
-    * 按照条件查询用户信息
+    * 按照条件查询${tableName}信息
     *
     * @param ${entity?uncap_first}Query 查询条件
     * @return 结果信息
@@ -54,7 +54,7 @@ public interface ${entity}ControllerApi {
     Result<${entity}> detail(String id);
 
     /**
-     * 增加${tableName}
+     * 增加${tableName}信息
      *
      * @param ${entity?uncap_first} ${tableName}增加实体
      * @return 增加后的${tableName}信息
@@ -63,7 +63,7 @@ public interface ${entity}ControllerApi {
     Result<${entity}> add(${entity} ${entity?uncap_first});
 
     /**
-     * 修改${tableName}
+     * 修改${tableName}信息
      *
      * @param id             ${tableName}ID
      * @param ${entity?uncap_first} ${tableName}修改实体
@@ -73,7 +73,7 @@ public interface ${entity}ControllerApi {
     Result<${entity}> updateById(@ApiParam(name = "id", value = "${tableName}ID", type = "path") String id, ${entity} ${entity?uncap_first});
 
     /**
-     * 删除${tableName}
+     * 删除${tableName}信息
      *
      * @param id ${tableName}ID
      * @return 删除结果信息
@@ -82,7 +82,7 @@ public interface ${entity}ControllerApi {
     Result<Boolean> deleteById(@ApiParam(name = "id", value = "${tableName}ID", type = "path") String id);
 
     /**
-     * 删除${tableName}
+     * 删除${tableName}信息
      *
      * @param idList ${tableName}ID数组
      * @return 删除结果信息

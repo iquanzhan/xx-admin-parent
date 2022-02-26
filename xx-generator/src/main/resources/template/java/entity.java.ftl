@@ -13,7 +13,7 @@ package ${package.Entity};
     import lombok.experimental.Accessors;
 </#if>
 <#--声明表名称-->
-<#assign tableName="${table.comment?substring(0,table.comment?length-1)}"/>
+<#assign tableName="${table.comment?replace('信息','')?replace('表','')}"/>
 
 /**
 * ${table.comment!} 实体对象

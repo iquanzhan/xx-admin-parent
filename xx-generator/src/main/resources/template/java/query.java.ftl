@@ -14,11 +14,11 @@ package ${cfg.basePackage!}.vo.query;
 </#if>
 
 <#--声明表名称-->
-<#assign tableName="${table.comment?substring(0,table.comment?length-1)}"/>
+<#assign tableName="${table.comment?replace('信息','')?replace('表','')}"/>
 
 
 /**
-* ${tableName!} 查询对象
+* ${tableName!}信息 查询对象
 *
 * @Description:
 * @Author: ${author}

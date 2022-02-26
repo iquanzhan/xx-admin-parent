@@ -4,11 +4,11 @@ import ${package.Entity}.${entity};
 import ${superMapperClassPackage};
 
 <#--声明表名称-->
-<#assign tableName="${table.comment?substring(0,table.comment?length-1)}"/>
+<#assign tableName="${table.comment?replace('信息','')?replace('表','')}"/>
 
 
 /**
-* ${tableName!} Mapper 接口
+* ${tableName!}信息 Mapper 接口
 *
 * @Description:
 * @Author: ${author}
