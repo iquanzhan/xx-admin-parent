@@ -43,6 +43,7 @@ public interface UserInfoService extends IService<UserInfo> {
 
     /**
      * 根据用户名获取用户信息-如无信息保存显示
+     *
      * @param userName 用户名
      * @return 用户信息
      */

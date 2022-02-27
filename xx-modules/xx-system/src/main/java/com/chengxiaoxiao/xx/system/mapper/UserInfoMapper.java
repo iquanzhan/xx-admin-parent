@@ -1,7 +1,7 @@
 package com.chengxiaoxiao.xx.system.mapper;
 
-import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.chengxiaoxiao.xxadmin.system.entity.UserInfo;
 
 
 /**
