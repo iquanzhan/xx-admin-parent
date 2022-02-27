@@ -14,6 +14,7 @@
         <module>xx-generator</module>
         <module>xx-auth</module>
         <module>xx-api</module>
+        <module>xx-gateway</module>
     </modules>
 
     <properties>

@@ -1,0 +1,46 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: xx-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            exposedHeaders:
+              - content-type
+            allowedHeaders:
+              - content-type
+              - Authentication
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowCredentials: true
+      routes:
+        - id: xx-system
+          uri: http://localhost:9001
+          predicates:
+            - Path=/system/**
+          filters:
+            - StripPrefix=1
+        - id: xx-auth
+          uri: http://localhost:9000
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+
+
+#默认展示所有节点
+management:
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
