@@ -19,13 +19,16 @@ import java.util.Objects;
 public class SecurityUtil {
     /**
      * 获取用户ID
+     *
      * @return 用户id
      */
     public static String getUserId() {
         return SecurityContextHolder.getUserId();
     }
+
     /**
      * 获取用户KEY
+     *
      * @return 用户id
      */
     public static String getUserKey() {
@@ -34,6 +37,7 @@ public class SecurityUtil {
 
     /**
      * 获取登录用户信息
+     *
      * @return 登录用户信息
      */
     public static LoginUser getLoginUser() {
@@ -42,6 +46,7 @@ public class SecurityUtil {
 
     /**
      * 获取请求token
+     *
      * @return token
      */
     public static String getToken() {
@@ -50,6 +55,7 @@ public class SecurityUtil {
 
     /**
      * 根据request获取请求token
+     *
      * @return token
      */
     public static String getToken(HttpServletRequest request) {
@@ -59,6 +65,7 @@ public class SecurityUtil {
 
     /**
      * 裁剪token前缀
+     *
      * @return 截取前缀后的token
      */
     public static String replaceTokenPrefix(String token) {

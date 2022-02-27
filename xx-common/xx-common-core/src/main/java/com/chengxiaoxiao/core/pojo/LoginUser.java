@@ -40,7 +40,7 @@ public class LoginUser implements Serializable {
     private Long expireTime;
 
     /**
-     * 过期时间
+     * 登录时间
      */
     private Long loginTime;
 

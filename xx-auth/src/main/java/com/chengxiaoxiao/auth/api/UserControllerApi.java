@@ -2,6 +2,7 @@ package com.chengxiaoxiao.auth.api;
 
 import com.chengxiaoxiao.auth.vo.form.LoginInfoForm;
 import com.chengxiaoxiao.auth.vo.vo.LoginInfoVo;
+import com.chengxiaoxiao.core.pojo.LoginUser;
 import com.chengxiaoxiao.core.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +35,16 @@ public interface UserControllerApi {
     Result<?> logout();
 
     /**
+     * 查询当前登录的用户信息
+     *
+     * @return 用户信息
+     */
+    @ApiOperation("查询当前登录用户信息")
+    Result<LoginUser> getUserInfo();
+
+    /**
      * 主动刷新token有效期
+     *
      * @return 刷新状态
      */
     Result<Boolean> refresh();
