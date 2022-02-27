@@ -127,7 +127,7 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     */
     @Override
     @GetMapping("/{id}")
-    public Result<${entity}> detail(@PathVariable String id) {
+    public Result<${entity}> detail(@PathVariable("id") String id) {
         return Result.success(${entity?uncap_first}Service.detailById(id));
     }
 
@@ -153,7 +153,7 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     */
     @Override
     @PutMapping("/{id}")
-    public Result<${entity}> updateById(@PathVariable String id,@RequestBody @Validated(UpdateGroup.class) ${entity} ${entity?uncap_first}) {
+    public Result<${entity}> updateById(@PathVariable("id") String id,@RequestBody @Validated(UpdateGroup.class) ${entity} ${entity?uncap_first}) {
         ${entity?uncap_first}.setId(id);
         ${entity?uncap_first}Service.update${entity}ById(${entity?uncap_first});
         return Result.success(${entity?uncap_first}Service.getById(id));
@@ -168,7 +168,7 @@ public class ${table.controllerName} implements ${table.controllerName}Api {
     */
     @Override
     @DeleteMapping("/{id}")
-    public Result<Boolean> deleteById(@PathVariable String id) {
+    public Result<Boolean> deleteById(@PathVariable("id") String id) {
         ${entity?uncap_first}Service.deleteById(id);
         return Result.success(true);
     }
